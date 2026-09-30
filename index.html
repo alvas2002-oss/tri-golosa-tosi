@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="description" content="Игровой урок русского языка для 2 класса: повествовательные, вопросительные и побудительные предложения с кошкой Тосей.">
+<style>body{margin:0} img{max-width:100%} [hidden]{display:none!important}</style>
+<title>Три голоса Тоси</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&family=Unbounded:wght@700;900&display=swap">
+<style>
+/* Layout: one narrow column, one step on screen at a time. Tosya and a speech bubble on top,
+   the sentence on a school-notebook strip in the middle, three fixed answer buttons below. */
+:root{
+  --paper:#f7f5ee; --surface:#ffffff; --ink:#182033; --muted:#5b6377; --line:#182033;
+  --purple:#6c5ce7; --teal:#00ad97; --yellow:#ffd43b; --on-yellow:#182033;
+  --tint-p:#ebe8ff; --tint-v:#d9f6f0; --tint-b:#fff1b8;
+  --cat:#8a919d; --cat-dark:#737b88; --cat-ink:#182033; --cat-pink:#f4a3b4;
+  --rule:#c3d2f0; --margin:#ef8f8f; --grid:rgba(108,92,231,.06); --wood:#d19a62;
+  --good:#0a7d5d; --bad:#c7364f; --shadow:rgba(24,32,51,.16);
+  --display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --body:"Nunito","Trebuchet MS",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141828; --surface:#20274a; --ink:#f3f1ff; --muted:#aab1cc; --line:#05070f;
+    --tint-p:#342d72; --tint-v:#0e4f48; --tint-b:#5c4d10;
+    --cat:#a2a9b5; --cat-dark:#858d9a; --rule:#3a4674; --margin:#a0525e; --grid:rgba(160,150,255,.06); --wood:#8f6238;
+    --good:#4be0b1; --bad:#ff8ea3; --shadow:rgba(0,0,0,.45); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141828; --surface:#20274a; --ink:#f3f1ff; --muted:#aab1cc; --line:#05070f;
+  --tint-p:#342d72; --tint-v:#0e4f48; --tint-b:#5c4d10;
+  --cat:#a2a9b5; --cat-dark:#858d9a; --rule:#3a4674; --margin:#a0525e; --grid:rgba(160,150,255,.06); --wood:#8f6238;
+  --good:#4be0b1; --bad:#ff8ea3; --shadow:rgba(0,0,0,.45); color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink); font:600 18px/1.45 var(--body);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+.wrap{max-width:720px; margin:0 auto; padding-inline:16px; padding-block:16px 40px; display:flex; flex-direction:column; gap:20px}
+button{font:inherit; color:inherit; cursor:pointer}
+button:focus-visible{outline:4px solid var(--purple); outline-offset:3px}
+h1,h2{font-family:var(--display); text-wrap:balance; margin:0; letter-spacing:-.02em}
+h1{font-size:clamp(30px,8vw,48px); line-height:1.05}
+h2{font-size:clamp(19px,4.6vw,24px); line-height:1.2}
+p{margin:0}
+
+/* top bar */
+.top{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px}
+.brand{font:900 13px/1 var(--body); letter-spacing:.1em; background:var(--yellow); color:var(--on-yellow);
+  border:2px solid var(--line); border-radius:10px; padding:8px 10px; box-shadow:3px 3px 0 var(--line); transform:rotate(-1deg)}
+.steps{display:flex; align-items:center; gap:8px; font-weight:800; font-size:14px; color:var(--muted)}
+.dots{display:flex; gap:5px}
+.dots i{width:22px; height:10px; border:2px solid var(--line); border-radius:6px; background:var(--surface)}
+.dots i.done{background:var(--teal)}
+.dots i.now{background:var(--yellow)}
+
+/* Tosya + bubble */
+.stage{display:grid; grid-template-columns:auto minmax(0,1fr); gap:18px; align-items:end}
+.tosya{width:132px; height:auto; display:block}
+.art .st{stroke:var(--line); stroke-width:5; stroke-linejoin:round; stroke-linecap:round}
+.art .fur{fill:var(--cat)} .art .fur2{fill:var(--cat-dark)} .art .dark{fill:var(--cat-ink)}
+.art .pink{fill:var(--cat-pink)} .art .none{fill:none}
+.art .mark{fill:var(--yellow)} .art .marktxt{fill:var(--on-yellow); font:900 30px var(--display)}
+.bubble{position:relative; background:var(--surface); border:3px solid var(--line); border-radius:18px;
+  padding:14px 16px; box-shadow:0 6px 0 var(--shadow); font-size:18px; min-width:0}
+.bubble::before{content:""; position:absolute; left:-10px; bottom:26px; width:16px; height:16px; background:var(--surface);
+  border-left:3px solid var(--line); border-bottom:3px solid var(--line); transform:rotate(45deg)}
+.bubble b{font-weight:900}
+.bubble .who{display:block; font:900 12px/1 var(--body); letter-spacing:.1em; color:var(--muted); margin-bottom:6px}
+
+/* notebook strip with the sentence */
+.note{border:3px solid var(--line); border-radius:14px; background:var(--surface); box-shadow:0 6px 0 var(--shadow);
+  padding:22px 18px 22px 46px; position:relative; font:800 clamp(22px,5.6vw,30px)/40px var(--body);
+  background-image:repeating-linear-gradient(transparent 0 38px,var(--rule) 38px 40px); background-position:0 20px; min-width:0; overflow-wrap:anywhere}
+.note::before{content:""; position:absolute; left:32px; top:0; bottom:0; width:2px; background:var(--margin)}
+.note small{display:block; font:800 14px/20px var(--body); color:var(--muted); letter-spacing:.04em}
+.bubble .who{display:flex; align-items:center; justify-content:space-between; gap:8px}
+.replay{flex:none; width:38px; height:38px; display:grid; place-items:center; background:var(--yellow); color:var(--on-yellow);
+  border:2px solid var(--line); border-radius:50%; box-shadow:0 3px 0 var(--line); padding:0}
+.replay svg{width:20px; height:20px}
+.listen{display:inline-flex; align-items:center; gap:6px; margin-top:6px; background:var(--tint-p); border:2px solid var(--line);
+  border-radius:10px; padding:4px 12px; font:800 15px/28px var(--body); box-shadow:0 3px 0 var(--line)}
+.note .listen{display:flex; width:max-content}
+.listen svg{width:18px; height:18px}
+.snd{background:var(--surface); border:2px solid var(--line); border-radius:10px; padding:6px 10px; font:800 14px/1 var(--body);
+  box-shadow:2px 3px 0 var(--line)}
+.art .mouth{transform-box:fill-box; transform-origin:center}
+@keyframes talk{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.35)}}
+.talking .bubble{outline:3px solid var(--yellow)}
+.talking .art .mouth{animation:talk .28s ease-in-out infinite}
+.count{font:900 13px/1 var(--body); letter-spacing:.1em; color:var(--muted)}
+
+/* answers */
+.answers{display:grid; gap:12px}
+.type,.opt{display:flex; flex-direction:column; gap:2px; text-align:left; width:100%; border:3px solid var(--line); border-radius:14px;
+  padding:13px 16px; box-shadow:0 5px 0 var(--line); transition:transform .08s}
+.type b{font:800 clamp(15px,4.2vw,19px)/1.2 var(--display); overflow-wrap:anywhere}
+.type span{font-size:15px; font-weight:800; opacity:.85}
+.t-P{background:var(--tint-p)} .t-V{background:var(--tint-v)} .t-B{background:var(--tint-b)}
+.opt{background:var(--surface); font-weight:800; font-size:20px}
+.type:not(:disabled):active,.opt:not(:disabled):active,.go:not(:disabled):active{transform:translateY(4px); box-shadow:0 1px 0 var(--line)}
+.type:disabled,.opt:disabled{cursor:default}
+.is-right{outline:4px solid var(--good); outline-offset:2px}
+.is-wrong{opacity:.6; text-decoration:line-through; box-shadow:none; transform:translateY(4px)}
+.is-dim{opacity:.45; box-shadow:none}
+.verdict{font-weight:900} .verdict.ok{color:var(--good)} .verdict.no{color:var(--bad)}
+
+.go{align-self:flex-start; background:var(--yellow); color:var(--on-yellow); border:3px solid var(--line); border-radius:14px;
+  padding:14px 26px; font:800 18px/1 var(--display); box-shadow:0 5px 0 var(--line); transition:transform .08s}
+.go:disabled{opacity:.5; cursor:default}
+.go.ghost{background:var(--surface); color:var(--ink)}
+.row{display:flex; flex-wrap:wrap; gap:12px; align-items:center}
+.hint{color:var(--muted); font-weight:800; font-size:15px}
+
+/* theory */
+.scene{border:3px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 6px 0 var(--shadow)}
+.scene svg{display:block; width:100%; height:auto}
+.art .wood{fill:var(--wood)} .art .plate{fill:var(--surface)} .art .fish{fill:var(--teal)}
+.art .ghost{fill:none; stroke-dasharray:7 7} .art .accent{fill:var(--purple)} .art .sun{fill:var(--yellow)}
+.art .qmark{fill:var(--purple); font:900 64px var(--display)}
+.tiles{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px}
+.tile{background:var(--surface); border:3px solid var(--line); border-radius:14px; padding:12px; display:flex; flex-direction:column;
+  gap:6px; align-items:flex-start; min-width:0}
+.tile .lbl{font:900 12px/1 var(--body); letter-spacing:.1em; color:var(--muted); text-transform:uppercase}
+.tile .main{font:800 clamp(15px,3vw,18px)/1.2 var(--display); overflow-wrap:anywhere}
+.tile .sub{font-size:15px; font-weight:800; color:var(--muted)}
+.tile svg{width:52px; height:52px; flex:none}
+.tile mark{background:var(--yellow); color:var(--on-yellow); border-radius:5px; padding:0 2px}
+.signs{display:flex; gap:8px}
+.signs i{width:46px; height:46px; display:grid; place-items:center; background:var(--yellow); color:var(--on-yellow);
+  border:3px solid var(--line); border-radius:12px; font:900 26px/1 var(--display); font-style:normal}
+.plan{margin:0; padding:0; list-style:none; display:grid; gap:8px; counter-reset:s}
+.plan li{counter-increment:s; display:flex; gap:10px; align-items:baseline; font-weight:800}
+.plan li::before{content:counter(s); flex:none; width:28px; height:28px; display:grid; place-items:center; background:var(--surface);
+  border:2px solid var(--line); border-radius:8px; font:700 13px var(--display)}
+
+/* result */
+.stars{font-size:54px; line-height:1; letter-spacing:6px; color:var(--yellow); -webkit-text-stroke:2px var(--line)}
+.stars .off{color:var(--surface)}
+.score{font:900 clamp(34px,9vw,52px)/1 var(--display); font-variant-numeric:tabular-nums}
+.panel{background:var(--surface); border:3px solid var(--line); border-radius:14px; padding:16px; display:grid; gap:10px; box-shadow:0 6px 0 var(--shadow)}
+.panel ul{margin:0; padding-left:20px; display:grid; gap:10px}
+.panel li b{font-weight:900}
+
+@keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-14px)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.hop{animation:hop .5s ease} .shake{animation:shake .3s ease}
+@media (prefers-reduced-motion: reduce){.hop,.shake,.talking .art .mouth{animation:none} .type,.opt,.go{transition:none}}
+@media (max-width:520px){
+  body{font-size:17px}
+  .tosya{width:88px} .stage{gap:14px}
+  .tiles{grid-template-columns:1fr}
+  .tile{display:grid; grid-template-columns:52px minmax(0,1fr); column-gap:12px; row-gap:2px; align-items:center}
+  .tile svg,.tile .signs{grid-row:1 / span 3}
+  .tile .signs{flex-direction:column; gap:4px} .tile .signs i{width:40px; height:40px; font-size:22px}
+  .tile:has(.signs){grid-template-columns:auto minmax(0,1fr)}
+  .go{align-self:stretch; text-align:center}
+}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">АКАДЕМИЯ ТОСИ</div>
+    <div class="steps" id="steps"></div>
+  </header>
+  <main id="app" style="display:flex;flex-direction:column;gap:20px"></main>
+</div>
+
+<script>
+const TYPES = {
+  P:{name:'Повествовательное', verb:'рассказывает, сообщает', short:'повествовательное'},
+  V:{name:'Вопросительное', verb:'спрашивает', short:'вопросительное'},
+  B:{name:'Побудительное', verb:'просит, советует, велит', short:'побудительное'}
+};
+
+const THEORY = {
+  P:{ex:'На столе лежит рыбка.', mood:'tell', say:'Первый вид — повествовательное предложение. Оно о чём-то рассказывает. Послушай.',
+     does:'Рассказывает', doesSub:'сообщает о чём-то',
+     word:'<mark>повест</mark>вовательное', hook:'как повесть, рассказ',
+     signs:['.','!'], end:'чаще точка'},
+  V:{ex:'Где моя рыбка?', mood:'ask', say:'Второй вид — вопросительное предложение. Оно спрашивает. Послушай, как меняется мой голос.',
+     does:'Спрашивает', doesSub:'хочет что-то узнать',
+     word:'<mark>вопрос</mark>ительное', hook:'внутри слово «вопрос»',
+     signs:['?'], end:'всегда'},
+  B:{ex:'Дай мне рыбку!', mood:'urge', say:'Третий вид — побудительное предложение. Оно просит что-то сделать. Послушай.',
+     does:'Просит сделать', doesSub:'или советует, велит',
+     word:'по<mark>буд</mark>ительное', hook:'как будильник: будит и велит вставать',
+     signs:['.','!'], end:'точка или восклицательный'}
+};
+const ORDER = ['P','V','B'];
+
+const FISH = (x, y, cls) => `<g transform="translate(${x} ${y})"><polygon class="st ${cls}" points="-30,0 -52,-15 -52,15"/>
+  <ellipse class="st ${cls}" cx="0" cy="0" rx="34" ry="15"/>${cls === 'fish' ? '<circle class="dark" cx="18" cy="-4" r="3.5"/>' : ''}</g>`;
+
+function scene(t){
+  const table = x => `<rect class="st wood" x="-6" y="100" width="332" height="40"/><ellipse class="st plate" cx="${x}" cy="98" rx="74" ry="12"/>`;
+  const body = {
+    P: table(160) + FISH(164, 80, 'fish'),
+    V: table(140) + FISH(144, 80, 'ghost') + '<text class="qmark" x="252" y="84" text-anchor="middle">?</text>',
+    B: table(104) + FISH(108, 80, 'fish') +
+       '<path class="st none" d="M170 58 Q206 36 238 58"/><polygon class="st dark" points="246,64 228,62 240,48"/>' +
+       '<rect class="st fur" x="254" y="52" width="90" height="34" rx="17"/>'
+  }[t];
+  const alt = {P:'Рыбка лежит на тарелке', V:'Пустая тарелка и знак вопроса', B:'Лапа тянется к рыбке'}[t];
+  return `<div class="scene t-${t}"><svg class="art" viewBox="0 0 320 132" role="img" aria-label="${alt}">${body}</svg></div>`;
+}
+
+function icon(t){
+  const art = {
+    P:'<path class="st accent" d="M8 12 H26 Q30 12 30 16 V48 Q30 44 26 44 H8 Z"/><path class="st accent" d="M52 12 H34 Q30 12 30 16 V48 Q30 44 34 44 H52 Z"/>',
+    V:'<circle class="st accent" cx="30" cy="30" r="24"/><text x="30" y="42" text-anchor="middle" style="font:900 32px var(--display);fill:var(--surface)">?</text>',
+    B:'<circle class="st sun" cx="14" cy="14" r="8"/><circle class="st sun" cx="46" cy="14" r="8"/><circle class="st plate" cx="30" cy="34" r="20"/><path class="st none" d="M30 22 V34 L38 40"/>'
+  }[t];
+  return `<svg class="art" viewBox="0 0 60 60" aria-hidden="true">${art}</svg>`;
+}
+
+const TRAP = [
+  {s:'Какая вкусная сметана!', a:'P', why:'Тут никого не спрашивают и ни о чём не просят. Тося сообщает, что сметана вкусная, и очень радуется. Предложение повествовательное, хотя в конце стоит восклицательный знак.'},
+  {s:'Ярослав, дай мне сметаны.', a:'B', why:'Тося просит что-то сделать. Предложение побудительное, хотя в конце точка. Просить можно и спокойно.'}
+];
+
+const SORT = [
+  {s:'Тося спит на подоконнике.', a:'P', why:'Здесь рассказывают, что делает Тося.'},
+  {s:'Кто съел мою сметану?', a:'V', why:'Тося хочет узнать, кто это сделал.'},
+  {s:'Ярослав, погладь меня, пожалуйста.', a:'B', why:'Тося просит погладить. В конце точка, но это просьба.'},
+  {s:'За окном идёт дождь.', a:'P', why:'Здесь сообщают, какая погода.'},
+  {s:'Не дёргай Тосю за хвост!', a:'B', why:'Здесь велят так не делать.'},
+  {s:'Когда мы пойдём гулять?', a:'V', why:'Здесь спрашивают про время.'},
+  {s:'Как красиво падают листья!', a:'P', why:'Здесь рассказывают про листья и радуются. Никого ни о чём не просят.'},
+  {s:'Принеси мне мячик!', a:'B', why:'Тося просит принести мячик.'}
+];
+
+const SAY = [
+  {want:'Тося хочет узнать, где лежит мячик.', a:1, t:'V',
+   o:['Мячик лежит под диваном.','Где лежит мой мячик?','Найди мой мячик!']},
+  {want:'Тося хочет, чтобы Ярослав открыл дверь.', a:2, t:'B',
+   o:['Дверь закрыта.','Кто закрыл дверь?','Ярослав, открой дверь, пожалуйста.']},
+  {want:'Тося хочет рассказать, что за окном сидит птичка.', a:0, t:'P',
+   o:['За окном сидит птичка.','Посмотри на птичку!','Ты видишь птичку?']},
+  {want:'Тося хочет дать совет про чистые руки.', a:1, t:'B',
+   o:['Ты вымыл руки?','Вымой руки перед едой.','Ярослав вымыл руки.']}
+];
+
+const TEST = [
+  {s:'У Тоси мягкие лапки.', a:'P', why:'Здесь сообщают, какие у Тоси лапки.'},
+  {s:'Ты сделал уроки, Ярослав?', a:'V', why:'Здесь спрашивают и ждут ответа.'},
+  {s:'Открой тетрадь и запиши число.', a:'B', why:'Здесь велят что-то сделать.'},
+  {s:'Почему коты любят коробки?', a:'V', why:'Здесь спрашивают о причине.'},
+  {s:'Ярослав учится во втором классе.', a:'P', why:'Здесь сообщают, где учится Ярослав.'},
+  {s:'Ребята, не шумите на уроке!', a:'B', why:'Здесь ребят просят не шуметь.'},
+  {s:'Какой сегодня солнечный день!', a:'P', why:'Здесь рассказывают про день и радуются. Восклицательный знак показывает чувство, а не просьбу.'},
+  {s:'Налей мне, пожалуйста, молока.', a:'B', why:'Это просьба, хотя в конце стоит точка.'},
+  {s:'Сколько лап у кошки?', a:'V', why:'Здесь спрашивают про число лап.'},
+  {s:'Осенью птицы улетают на юг.', a:'P', why:'Здесь сообщают, что бывает осенью.'}
+];
+
+const QUIZ = {
+  trap:{items:TRAP, next:'sort'},
+  sort:{items:SORT, next:'say'},
+  test:{items:TEST, next:'result', once:true}
+};
+const STEPS = [['theory','Правило'],['trap','Ловушка'],['sort','Тренировка'],['say','Что скажет Тося'],['test','Проверочная']];
+
+const LINES = {
+  hello:'Привет, Ярослав! Я Тося. Нажми на кнопку, и я расскажу, чем мы займёмся.',
+  start:'Сегодня я расскажу тебе, какие бывают предложения. Одни <b>рассказывают</b>. Другие <b>спрашивают</b>. Третьи <b>просят</b> что-то сделать. Сначала я всё объясню. Потом мы потренируемся. А в конце будет проверочная. Готов? Нажимай «Начать урок»!',
+  trap_intro:'Осторожно, ловушка! Знак в конце — только подсказка. Главный вопрос: <b>зачем это сказали?</b> Рассказать, спросить или попросить?',
+  test_intro:'Проверочная. Подсказок под кнопками больше нет, а на каждое предложение одна попытка. Не спеши!',
+  prompt:'Прочитай предложение вслух. Какое оно?',
+  hint_sign:'Не смотри только на знак в конце. Спроси себя: <b>зачем это сказали?</b>',
+  hint_retry:'Попробуй ещё раз. Тут рассказывают, спрашивают или просят что-то сделать?',
+  say_prompt:'Помоги мне подобрать слова. Какое предложение подходит?',
+  say_miss:'Это предложение про то же самое, но сказано для другого. Перечитай, чего я хочу.',
+  res_3:'Ярослав, ты слышишь все три голоса! Я горжусь.',
+  res_2:'Хорошая работа, Ярослав! Посмотри ошибки ниже и попробуй ещё раз.',
+  res_1:'Ярослав, тема непростая. Давай прочитаем правило ещё раз и повторим.'
+};
+/*DATA-END*/
+
+let CUE = [];
+const player = new Audio();
+let queue = [];
+function playNext(){
+  const id = queue.shift();
+  if (!id) return;
+  player.dataset.id = id; player.dataset.blob = '';
+  player.src = `audio/${id}.mp3`;
+  player.play().catch(() => {});
+}
+function speak(ids){
+  player.pause(); queue = [];
+  document.body.classList.remove('talking');
+  if (ids.length) { queue = ids.slice(); playNext(); }
+}
+player.addEventListener('ended', () => setTimeout(playNext, 450));
+player.addEventListener('play', () => document.body.classList.add('talking'));
+['pause','ended'].forEach(ev => player.addEventListener(ev, () => document.body.classList.remove('talking')));
+player.addEventListener('error', async () => {
+  if (player.dataset.blob) return playNext();
+  try {
+    const blob = await (await fetch(`audio/${player.dataset.id}.mp3`)).blob();
+    player.dataset.blob = '1'; player.src = URL.createObjectURL(blob);
+    player.play().catch(() => {});
+  } catch (e) { playNext(); }
+});
+const SPEAKER = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const listen = id => `<button class="listen" data-listen="${id}">${SPEAKER}Послушать</button>`;
+
+let S = {screen:'start', i:0, picked:null, done:false, misses:[], score:0, wrong:[], fx:''};
+const app = document.getElementById('app');
+
+function tosya(mood){
+  const mouth = {
+    tell:'<path class="st none mouth" d="M88 108 Q100 116 112 108"/>',
+    ask:'<circle class="st pink mouth" cx="100" cy="112" r="6"/>',
+    urge:'<path class="st pink mouth" d="M86 106 Q100 128 114 106 Z"/>',
+    happy:'<path class="st pink mouth" d="M82 104 Q100 130 118 104 Z"/>',
+    oops:'<path class="st none mouth" d="M86 112 Q93 104 100 112 T114 112"/>'
+  }[mood] || '';
+  const eyes = mood === 'happy'
+    ? '<path class="st none" d="M66 86 Q76 74 86 86"/><path class="st none" d="M114 86 Q124 74 134 86"/>'
+    : '<circle class="dark" cx="76" cy="84" r="8"/><circle class="dark" cx="124" cy="84" r="8"/>';
+  const sign = {tell:'.', ask:'?', urge:'!'}[mood];
+  const mark = sign ? `<circle class="st mark" cx="172" cy="34" r="22"/><text class="marktxt" x="172" y="45" text-anchor="middle">${sign}</text>` : '';
+  const paw = mood === 'urge'
+    ? '<rect class="st fur" x="134" y="118" width="26" height="54" rx="13" transform="rotate(-38 147 170)"/>'
+    : '<rect class="st fur" x="122" y="168" width="26" height="34" rx="12"/>';
+  const tilt = mood === 'ask' ? ' transform="rotate(-9 100 96)"' : '';
+  return `<svg class="tosya art ${S.fx}" viewBox="0 0 200 214" role="img" aria-label="Тося">
+    <path class="st none" style="stroke:var(--line);stroke-width:24" d="M146 186 Q188 186 182 138"/>
+    <path class="none" style="stroke:var(--cat-dark);stroke-width:14;stroke-linecap:round" d="M146 186 Q188 186 182 138"/>
+    <rect class="st fur2" x="50" y="112" width="100" height="92" rx="36"/>
+    <rect class="st fur" x="58" y="168" width="26" height="34" rx="12"/>${paw}
+    <g${tilt}>
+      <polygon class="st fur" points="44,66 54,12 96,44"/><polygon class="st fur" points="156,66 146,12 104,44"/>
+      <rect class="st fur" x="34" y="36" width="132" height="100" rx="42"/>
+      ${eyes}<polygon class="pink" points="94,96 106,96 100,103"/>${mouth}
+      <path class="st none" style="stroke-width:3" d="M58 100 H34 M60 108 L38 116 M142 100 H166 M140 108 L162 116"/>
+    </g>${mark}
+  </svg>`;
+}
+
+function stage(mood, html){
+  return `<section class="stage">${tosya(mood)}<div class="bubble" aria-live="polite"><span class="who">ТОСЯ ГОВОРИТ</span>${html}${CUE.length ? `<button class="listen" data-replay>${SPEAKER}Послушать Тосю</button>` : ''}</div></section>`;
+}
+
+function renderSteps(){
+  const el = document.getElementById('steps');
+  const idx = STEPS.findIndex(s => s[0] === S.screen);
+  if (idx < 0) { el.innerHTML = ''; return; }
+  el.innerHTML = `<span>Шаг ${idx + 1} из ${STEPS.length} · ${STEPS[idx][1]}</span><span class="dots" aria-hidden="true">` +
+    STEPS.map((s, n) => `<i class="${n < idx ? 'done' : n === idx ? 'now' : ''}"></i>`).join('') + '</span>';
+}
+
+function typeButtons(it, q){
+  return ['P','V','B'].map(t => {
+    let cls = 'type t-' + t, dis = '', tag = '';
+    if (S.done) {
+      dis = 'disabled';
+      if (t === it.a) { cls += ' is-right'; tag = ' ✓'; }
+      else if (t === S.picked) { cls += ' is-wrong'; tag = ' ✗'; }
+      else cls += ' is-dim';
+    } else if (S.misses.includes(t)) { cls += ' is-wrong'; dis = 'disabled'; tag = ' ✗'; }
+    return `<button class="${cls}" data-pick="${t}" ${dis}><b>${TYPES[t].name}${tag}</b>${q.once ? '' : `<span>${TYPES[t].verb}</span>`}</button>`;
+  }).join('');
+}
+
+function views(){
+  CUE = [];
+  if (S.screen === 'intro') { CUE = ['start']; return `
+    ${stage('happy', `<p>${LINES.start}</p>`)}
+    <h2>План урока</h2>
+    <ol class="plan">
+      <li>Правило на примере рыбки</li>
+      <li>Ловушка со знаками в конце</li>
+      <li>Тренировка: 8 предложений</li>
+      <li>Подбираем слова для Тоси</li>
+      <li>Проверочная: 10 предложений</li>
+    </ol>
+    <button class="go" data-go="theory">Начать урок</button>`; }
+  if (S.screen === 'start') { CUE = ['hello']; return `
+    ${stage('happy', `<p>${LINES.hello}</p>`)}
+    <h1>Три голоса Тоси</h1>
+    <p>Повествовательные, вопросительные и побудительные предложения. Русский язык, 2 класс.</p>
+    <button class="go" data-go="intro">Привет, Тося!</button>`; }
+
+  if (S.screen === 'theory') {
+    const t = ORDER[S.i] || 'P', th = THEORY[t];
+    CUE = ['th_' + t, 'ex_' + t];
+    return `
+    <div class="count">ГОЛОС ${S.i + 1} ИЗ 3</div>
+    <h2>${TYPES[t].name} предложение</h2>
+    ${stage(th.mood, `<p>${th.say}</p>`)}
+    ${scene(t)}
+    <div class="note">${th.ex}${listen('ex_' + t)}</div>
+    <div class="tiles">
+      <div class="tile"><span class="lbl">Зачем</span><span class="main">${th.does}</span><span class="sub">${th.doesSub}</span></div>
+      <div class="tile">${icon(t)}<span class="lbl">Запомни</span><span class="main">${th.word}</span><span class="sub">${th.hook}</span></div>
+      <div class="tile"><span class="signs">${th.signs.map(s => `<i>${s}</i>`).join('')}</span><span class="lbl">В конце</span><span class="sub">${th.end}</span></div>
+    </div>
+    <div class="row">
+      ${S.i > 0 ? '<button class="go ghost" data-back>Назад</button>' : ''}
+      <button class="go" data-next>${S.i < 2 ? 'Следующий голос' : 'Дальше'}</button>
+    </div>`;
+  }
+
+  if (QUIZ[S.screen]) {
+    const q = QUIZ[S.screen], it = q.items[S.i], right = S.done && S.picked === it.a;
+    let mood = 'tell', msg;
+    if (S.done) {
+      mood = right ? 'happy' : 'oops';
+      CUE = [right ? 'ok' : 'no', `why_${S.screen}_${S.i}`].concat(right ? [] : ['ans_' + it.a]);
+      msg = `<p><span class="verdict ${right ? 'ok' : 'no'}">${right ? 'Верно!' : 'Неверно.'}</span> ${it.why}${right ? '' : ` Правильный ответ: <b>${TYPES[it.a].short}</b>.`}</p>`;
+    } else if (S.misses.length) {
+      mood = 'oops';
+      const last = S.misses[S.misses.length - 1];
+      const bySign = (it.s.endsWith('!') && last === 'B') || (it.s.endsWith('.') && last === 'P');
+      CUE = [bySign ? 'hint_sign' : 'hint_retry'];
+      msg = `<p>${LINES[CUE[0]]}</p>`;
+    } else if (S.i === 0 && S.screen !== 'sort') {
+      CUE = [S.screen + '_intro'];
+      msg = `<p>${LINES[CUE[0]]}</p>`;
+    } else {
+      CUE = ['prompt'];
+      msg = `<p>${LINES.prompt}</p>`;
+    }
+    return `
+    ${stage(mood, msg)}
+    <div class="count">ПРЕДЛОЖЕНИЕ ${S.i + 1} ИЗ ${q.items.length}</div>
+    <div class="note">${it.s}${q.once ? '' : listen(`s_${S.screen}_${S.i}`)}</div>
+    <div class="answers">${typeButtons(it, q)}</div>
+    ${S.done ? '<button class="go" data-next>Дальше</button>' : ''}`;
+  }
+
+  if (S.screen === 'say') {
+    const it = SAY[S.i];
+    let mood = 'ask', msg = `<p>${LINES.say_prompt}</p>`;
+    CUE = ['say_prompt'];
+    if (S.done) { mood = 'happy'; CUE = ['say_' + it.t]; msg = `<p><span class="verdict ok">Точно!</span> Это <b>${TYPES[it.t].short}</b> предложение: оно ${TYPES[it.t].verb.split(',')[0]}.</p>`; }
+    else if (S.misses.length) { mood = 'oops'; CUE = ['say_miss']; msg = `<p>${LINES.say_miss}</p>`; }
+    return `
+    ${stage(mood, msg)}
+    <div class="count">ЗАДАНИЕ ${S.i + 1} ИЗ ${SAY.length}</div>
+    <div class="note"><small>Чего хочет Тося</small>${it.want}</div>
+    <div class="answers">${it.o.map((o, n) => {
+      let cls = 'opt', dis = '', tag = '';
+      if (S.done) { dis = 'disabled'; if (n === it.a) { cls += ' is-right'; tag = ' ✓'; } else cls += ' is-dim'; }
+      else if (S.misses.includes(n)) { cls += ' is-wrong'; dis = 'disabled'; tag = ' ✗'; }
+      return `<button class="${cls}" data-say="${n}" ${dis}>${o}${tag}</button>`;
+    }).join('')}</div>
+    ${S.done ? '<button class="go" data-next>Дальше</button>' : ''}`;
+  }
+
+  // result
+  const n = TEST.length, stars = S.score >= 9 ? 3 : S.score >= 7 ? 2 : 1;
+  const msg = LINES['res_' + stars];
+  CUE = ['res_' + stars];
+  return `
+    ${stage(stars === 1 ? 'tell' : 'happy', `<p>${msg}</p>`)}
+    <h1>Проверочная готова</h1>
+    <div class="stars" aria-label="Звёзд: ${stars} из 3">${[1,2,3].map(k => `<span class="${k <= stars ? '' : 'off'}">★</span>`).join('')}</div>
+    <div class="score">${S.score} из ${n}</div>
+    ${S.wrong.length ? `<div class="panel"><h2>Разбор ошибок</h2><ul>${S.wrong.map(k =>
+      `<li><b>«${TEST[k].s}»</b> — ${TYPES[TEST[k].a].short}. ${TEST[k].why}</li>`).join('')}</ul></div>` : ''}
+    <div class="panel t-B"><h2>Задание в тетрадь</h2>
+      <p>Запиши три предложения про Тосю: одно повествовательное, одно вопросительное и одно побудительное. Покажи их маме или папе.</p></div>
+    <div class="row">
+      <button class="go" data-go="test">Пройти проверочную ещё раз</button>
+      <button class="go ghost" data-go="theory">Повторить правило</button>
+    </div>`;
+}
+
+function render(){
+  app.innerHTML = views();
+  renderSteps();
+  S.fx = '';
+  speak([]);
+}
+
+function go(screen){
+  S.screen = screen; S.i = 0; S.picked = null; S.done = false; S.misses = [];
+  if (screen === 'test') { S.score = 0; S.wrong = []; }
+  render(); window.scrollTo(0, 0);
+}
+
+app.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b || b.disabled) return;
+  const d = b.dataset;
+  if ('replay' in d) return speak(CUE);
+  if (d.listen) return speak([d.listen]);
+  if (d.go) return go(d.go);
+  if ('back' in d) { S.i = Math.max(0, S.i - 1); render(); return window.scrollTo(0, 0); }
+  if (d.pick) {
+    const q = QUIZ[S.screen], it = q.items[S.i];
+    if (d.pick === it.a) { S.done = true; S.picked = d.pick; S.fx = 'hop'; if (q.once) S.score++; }
+    else if (q.once) { S.done = true; S.picked = d.pick; S.wrong.push(S.i); S.fx = 'shake'; }
+    else { S.misses.push(d.pick); S.fx = 'shake'; }
+    return render();
+  }
+  if (d.say !== undefined) {
+    const n = +d.say;
+    if (n === SAY[S.i].a) { S.done = true; S.fx = 'hop'; } else { S.misses.push(n); S.fx = 'shake'; }
+    return render();
+  }
+  if ('next' in d) {
+    const len = S.screen === 'theory' ? 3 : S.screen === 'say' ? SAY.length : QUIZ[S.screen].items.length;
+    const nxt = S.screen === 'theory' ? 'trap' : S.screen === 'say' ? 'test' : QUIZ[S.screen].next;
+    if (S.i + 1 >= len) return go(nxt);
+    S.i++; S.picked = null; S.done = false; S.misses = [];
+    render(); window.scrollTo(0, 0);
+  }
+});
+
+function start(saved){
+  if (saved && saved.screen) S = Object.assign(S, saved, {fx:''});
+  render();
+}
+window.claude?.hot?.snapshot?.(() => S);
+window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
+</script>
+
+</body>
+</html>
